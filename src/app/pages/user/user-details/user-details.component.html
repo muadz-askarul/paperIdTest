@@ -1,0 +1,47 @@
+<div class="header" style="display: flex; align-items: center; gap: 10px">
+  <button mat-icon-button [routerLink]="['']">
+    <mat-icon style="color: white">arrow_back</mat-icon>
+  </button>
+  <div style="font-size: large">User Details</div>
+</div>
+<div class="container">
+  <div *ngIf="isLoadingResults; else showResult" class="loading-shade">
+    <mat-spinner></mat-spinner>
+  </div>
+  <ng-template #showResult>
+    <div *ngIf="user">
+      <div
+        style="
+          font-size: xx-large;
+          font-weight: bold;
+          text-align: center;
+          margin: 40px 0;
+        "
+      >
+        {{ user.name }}
+      </div>
+
+      <table mat-table [dataSource]="dataSource">
+        <!-- Position Column -->
+        <ng-container matColumnDef="key">
+          <th mat-header-cell *matHeaderCellDef>No.</th>
+          <td mat-cell *matCellDef="let element">{{ element.key }}</td>
+        </ng-container>
+
+        <!-- Name Column -->
+        <ng-container matColumnDef="value">
+          <th mat-header-cell *matHeaderCellDef>Name</th>
+          <td mat-cell *matCellDef="let element">{{ element.value }}</td>
+        </ng-container>
+
+        <!-- <tr mat-header-row *matHeaderRowDef="['key', 'value']"></tr> -->
+        <tr mat-row *matRowDef="let row; columns: ['key', 'value']"></tr>
+      </table>
+      <mat-divider></mat-divider>
+    </div>
+    <div *ngIf="user == null" #noContent>
+      <div>User not found!</div>
+      <button mat-button [routerLink]="['']">Back to user list</button>
+    </div>
+  </ng-template>
+</div>
