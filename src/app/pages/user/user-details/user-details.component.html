@@ -5,11 +5,12 @@
   <div style="font-size: large">User Details</div>
 </div>
 <div class="container">
-  <div *ngIf="isLoadingResults; else showResult" class="loading-shade">
+  <div *ngIf="isLoadingResults; else showResult" class="loading-shade"
+       style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);" data-testid="loading-view">
     <mat-spinner></mat-spinner>
   </div>
-  <ng-template #showResult>
-    <div *ngIf="user">
+  <ng-template #showResult >
+    <div *ngIf="user" data-testid="success-view">
       <div
         style="
           font-size: xx-large;
@@ -39,7 +40,7 @@
       </table>
       <mat-divider></mat-divider>
     </div>
-    <div *ngIf="user == null" #noContent>
+    <div *ngIf="user == null" #noContent data-testid="no-data-view">
       <div>User not found!</div>
       <button mat-button [routerLink]="['']">Back to user list</button>
     </div>
